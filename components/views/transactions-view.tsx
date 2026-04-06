@@ -13,6 +13,7 @@ export function TransactionsView() {
   const role = useFinanceStore((state) => state.userRole);
   const transactions = useFinanceStore((state) => state.transactions);
   const filtered = useFinanceStore((state) => state.filteredTransactions);
+  const customCategories = useFinanceStore((state) => state.customCategories);
   const loading = useFinanceStore((state) => state.loading);
   const error = useFinanceStore((state) => state.error);
 
@@ -21,6 +22,7 @@ export function TransactionsView() {
   const setSort = useFinanceStore((state) => state.setSort);
   const addTransaction = useFinanceStore((state) => state.addTransaction);
   const updateTransaction = useFinanceStore((state) => state.updateTransaction);
+  const addCustomCategory = useFinanceStore((state) => state.addCustomCategory);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<Transaction | null>(null);
@@ -30,8 +32,8 @@ export function TransactionsView() {
   }, [fetchTransactions]);
 
   const categories = useMemo(
-    () => Array.from(new Set(transactions.map((tx) => tx.category))).sort(),
-    [transactions],
+    () => Array.from(new Set([...transactions.map((tx) => tx.category), ...customCategories])).sort(),
+    [transactions, customCategories],
   );
 
   const handleSubmit = async (payload: TransactionPayload, id?: string) => {
@@ -89,6 +91,8 @@ export function TransactionsView() {
         key={`${editing?.id ?? "new"}-${modalOpen}`}
         open={modalOpen}
         initialValue={editing}
+        categories={categories}
+        onAddCategory={addCustomCategory}
         onClose={() => {
           setModalOpen(false);
           setEditing(null);

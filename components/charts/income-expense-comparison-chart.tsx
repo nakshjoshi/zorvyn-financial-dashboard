@@ -1,17 +1,18 @@
 "use client";
 
 import {
+  Bar,
+  BarChart,
   CartesianGrid,
-  Line,
-  LineChart,
+  Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import { BalancePoint } from "@/types/finance";
-import { formatCurrency } from "@/lib/format";
 import { Panel } from "@/components/ui/panel";
+import { formatCurrency } from "@/lib/format";
+import { IncomeExpensePoint } from "@/types/finance";
 
 const compactAmount = (value: number) => {
   if (Math.abs(value) >= 1000) {
@@ -20,19 +21,18 @@ const compactAmount = (value: number) => {
   return `${Math.round(value)}`;
 };
 
-export function BalanceLineChart({ data }: { data: BalancePoint[] }) {
+export function IncomeExpenseComparisonChart({ data }: { data: IncomeExpensePoint[] }) {
   return (
     <Panel>
-      <h3 className="font-semibold">Balance Trend</h3>
-      <p className="mt-1 text-sm text-muted">Running balance over transaction timeline</p>
+      <h3 className="font-semibold">Income vs Expense</h3>
+      <p className="mt-1 text-sm text-muted">Compare monthly inflow and outflow with net impact</p>
       <div className="mt-4 h-[280px] w-full">
         <ResponsiveContainer>
-          <LineChart data={data} margin={{ left: 10, right: 10, top: 10 }}>
+          <BarChart data={data} barCategoryGap="24%" margin={{ left: 10, right: 10, top: 10 }}>
             <CartesianGrid stroke="rgba(149, 164, 193, 0.22)" strokeDasharray="4 4" />
-            <XAxis dataKey="date" stroke="var(--muted)" />
+            <XAxis dataKey="month" stroke="var(--muted)" />
             <YAxis stroke="var(--muted)" tickFormatter={compactAmount} width={50} />
             <Tooltip
-              labelFormatter={(label) => `Date: ${label}`}
               formatter={(value) => formatCurrency(Number(value))}
               contentStyle={{
                 background: "rgba(7, 16, 41, 0.92)",
@@ -41,15 +41,10 @@ export function BalanceLineChart({ data }: { data: BalancePoint[] }) {
                 color: "#e6edf8",
               }}
             />
-            <Line
-              type="monotone"
-              dataKey="balance"
-              stroke="#3d8bfd"
-              strokeWidth={3}
-              dot={{ r: 2 }}
-              activeDot={{ r: 5, fill: "#27d3c0" }}
-            />
-          </LineChart>
+            <Legend wrapperStyle={{ color: "var(--muted)", fontSize: "12px", paddingTop: "6px" }} />
+            <Bar dataKey="income" name="Income" fill="#27d3c0" radius={[8, 8, 0, 0]} />
+            <Bar dataKey="expense" name="Expense" fill="#3d8bfd" radius={[8, 8, 0, 0]} />
+          </BarChart>
         </ResponsiveContainer>
       </div>
     </Panel>

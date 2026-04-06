@@ -14,6 +14,7 @@ import {
 interface FinanceState {
   transactions: Transaction[];
   filteredTransactions: Transaction[];
+  customCategories: string[];
   userRole: UserRole;
   theme: "light" | "dark";
   filters: TransactionFilters;
@@ -23,6 +24,7 @@ interface FinanceState {
   fetchTransactions: () => Promise<void>;
   addTransaction: (payload: TransactionPayload) => Promise<void>;
   updateTransaction: (id: string, payload: Partial<TransactionPayload>) => Promise<void>;
+  addCustomCategory: (category: string) => void;
   setFilters: (filters: Partial<TransactionFilters>) => void;
   setSort: (sort: TransactionSort) => void;
   setRole: (role: UserRole) => void;
@@ -69,6 +71,7 @@ export const useFinanceStore = create<FinanceState>()(
     (set, get) => ({
       transactions: [],
       filteredTransactions: [],
+      customCategories: [],
       userRole: "admin",
       theme: "light",
       filters: {
@@ -113,6 +116,7 @@ export const useFinanceStore = create<FinanceState>()(
             method: "POST",
             body: JSON.stringify(payload),
           });
+          get().addCustomCategory(payload.category);
           await get().fetchTransactions();
         } catch (error) {
           set({
@@ -129,6 +133,9 @@ export const useFinanceStore = create<FinanceState>()(
             method: "PUT",
             body: JSON.stringify(payload),
           });
+          if (typeof payload.category === "string") {
+            get().addCustomCategory(payload.category);
+          }
           await get().fetchTransactions();
         } catch (error) {
           set({
@@ -136,6 +143,24 @@ export const useFinanceStore = create<FinanceState>()(
             error: error instanceof Error ? error.message : "Failed to update transaction",
           });
         }
+      },
+
+      addCustomCategory: (category) => {
+        const normalized = category.trim();
+        if (!normalized) {
+          return;
+        }
+
+        const existing = get().customCategories;
+        const exists = existing.some(
+          (entry) => entry.toLowerCase() === normalized.toLowerCase(),
+        );
+
+        if (exists) {
+          return;
+        }
+
+        set({ customCategories: [...existing, normalized].sort((a, b) => a.localeCompare(b)) });
       },
 
       setFilters: (nextFilters) => {
@@ -167,6 +192,7 @@ export const useFinanceStore = create<FinanceState>()(
       partialize: (state) => ({
         userRole: state.userRole,
         theme: state.theme,
+        customCategories: state.customCategories,
       }),
     },
   ),

@@ -26,6 +26,20 @@ export interface BalancePoint {
   balance: number;
 }
 
+export interface MonthlyExpensePoint {
+  month: string;
+  expense: number;
+}
+
+export interface IncomeExpensePoint {
+  month: string;
+  income: number;
+  expense: number;
+  net: number;
+}
+
+export type DashboardDateRange = "30d" | "90d" | "180d" | "365d" | "all";
+
 export interface MonthlyComparison {
   currentMonth: number;
   previousMonth: number;
