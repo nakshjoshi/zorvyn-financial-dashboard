@@ -21,6 +21,11 @@ const mono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Zorvyn Financial Dashboard",
   description: "Fullstack finance dashboard with Next.js, API routes, Zustand, and charts.",
+  icons: {
+    icon: "/NJ-favicon.svg",
+    shortcut: "/NJ-favicon.svg",
+    apple: "/NJ-favicon.svg",
+  },
 };
 
 export default function RootLayout({
