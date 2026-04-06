@@ -7,7 +7,7 @@ export function InsightsPanel({ insights }: { insights: Insights }) {
     <div className="grid gap-4 lg:grid-cols-3">
       <Panel>
         <p className="text-sm text-muted">Highest Spending Category</p>
-        <p className="mt-2 text-xl font-semibold text-amber-300">
+        <p className="mt-2 text-xl font-semibold text-transparent bg-clip-text bg-[linear-gradient(90deg,var(--accent),var(--accent-soft))]">
           {insights.highestSpendingCategory.category}
         </p>
         <p className="mt-1 text-sm text-muted">
@@ -25,7 +25,7 @@ export function InsightsPanel({ insights }: { insights: Insights }) {
         </p>
         <p
           className={`mt-1 text-sm ${
-            insights.monthlyComparison.delta >= 0 ? "text-emerald-300" : "text-red-300"
+            insights.monthlyComparison.delta >= 0 ? "text-cyan-300" : "text-red-300"
           }`}
         >
           {insights.monthlyComparison.delta >= 0 ? "+" : ""}
@@ -38,7 +38,7 @@ export function InsightsPanel({ insights }: { insights: Insights }) {
         <p className="text-sm text-muted">Analytics</p>
         <p className="mt-2 text-sm">Avg income: {formatCurrency(insights.analytics.avgIncome)}</p>
         <p className="mt-1 text-sm">Avg expense: {formatCurrency(insights.analytics.avgExpense)}</p>
-        <p className="mt-1 text-sm text-teal-300">
+        <p className="mt-1 text-sm text-cyan-300">
           Savings rate: {insights.analytics.savingsRate}%
         </p>
       </Panel>

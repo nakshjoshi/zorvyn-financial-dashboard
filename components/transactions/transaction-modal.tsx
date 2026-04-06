@@ -41,8 +41,8 @@ export function TransactionModal({ open, initialValue, onClose, onSubmit }: Prop
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-(--panel) p-5">
+    <div className="overlay-surface fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+      <div className="glass-card w-full max-w-md rounded-2xl border border-white/10 bg-(--panel-strong) p-5 shadow-[0_28px_70px_-34px_rgba(2,8,23,0.95)]">
         <h3 className="font-semibold">{title}</h3>
         <form
           className="mt-4 space-y-3"
@@ -56,7 +56,7 @@ export function TransactionModal({ open, initialValue, onClose, onSubmit }: Prop
             type="date"
             value={form.date}
             onChange={(event) => setForm((prev) => ({ ...prev, date: event.target.value }))}
-            className="w-full rounded-xl border border-white/10 bg-transparent px-3 py-2 text-sm"
+            className="control-surface w-full rounded-xl border px-3 py-2 text-sm outline-none ring-(--ring) focus:ring"
           />
 
           <input
@@ -69,7 +69,7 @@ export function TransactionModal({ open, initialValue, onClose, onSubmit }: Prop
               setForm((prev) => ({ ...prev, amount: Number(event.target.value) }))
             }
             placeholder="Amount"
-            className="w-full rounded-xl border border-white/10 bg-transparent px-3 py-2 text-sm"
+            className="control-surface w-full rounded-xl border px-3 py-2 text-sm outline-none ring-(--ring) focus:ring"
           />
 
           <input
@@ -78,7 +78,7 @@ export function TransactionModal({ open, initialValue, onClose, onSubmit }: Prop
             value={form.category}
             onChange={(event) => setForm((prev) => ({ ...prev, category: event.target.value }))}
             placeholder="Category"
-            className="w-full rounded-xl border border-white/10 bg-transparent px-3 py-2 text-sm"
+            className="control-surface w-full rounded-xl border px-3 py-2 text-sm outline-none ring-(--ring) focus:ring"
           />
 
           <select
@@ -89,7 +89,7 @@ export function TransactionModal({ open, initialValue, onClose, onSubmit }: Prop
                 type: event.target.value as "income" | "expense",
               }))
             }
-            className="w-full rounded-xl border border-white/10 bg-transparent px-3 py-2 text-sm"
+            className="control-surface w-full rounded-xl border px-3 py-2 text-sm outline-none ring-(--ring) focus:ring"
           >
             <option value="income">Income</option>
             <option value="expense">Expense</option>
@@ -99,20 +99,20 @@ export function TransactionModal({ open, initialValue, onClose, onSubmit }: Prop
             value={form.notes}
             onChange={(event) => setForm((prev) => ({ ...prev, notes: event.target.value }))}
             placeholder="Notes"
-            className="h-24 w-full rounded-xl border border-white/10 bg-transparent px-3 py-2 text-sm"
+            className="control-surface h-24 w-full rounded-xl border px-3 py-2 text-sm outline-none ring-(--ring) focus:ring"
           />
 
           <div className="flex justify-end gap-2 pt-2">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-xl border border-white/15 px-4 py-2 text-sm"
+              className="control-surface rounded-xl border px-4 py-2 text-sm transition hover:border-accent/45 hover:bg-[var(--hover-bg)]"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="rounded-xl bg-teal-500 px-4 py-2 text-sm font-semibold text-black"
+              className="rounded-xl bg-[linear-gradient(94deg,var(--accent),var(--accent-soft))] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_-14px_rgba(61,139,253,0.85)] transition hover:brightness-110"
             >
               Save
             </button>

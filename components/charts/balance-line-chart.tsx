@@ -21,17 +21,25 @@ export function BalanceLineChart({ data }: { data: BalancePoint[] }) {
       <div className="mt-4 h-[280px] w-full">
         <ResponsiveContainer>
           <LineChart data={data}>
-            <CartesianGrid stroke="rgba(148, 163, 184, 0.22)" strokeDasharray="4 4" />
+            <CartesianGrid stroke="rgba(149, 164, 193, 0.22)" strokeDasharray="4 4" />
             <XAxis dataKey="date" stroke="var(--muted)" />
             <YAxis stroke="var(--muted)" />
-            <Tooltip formatter={(value) => formatCurrency(Number(value))} />
+            <Tooltip
+              formatter={(value) => formatCurrency(Number(value))}
+              contentStyle={{
+                background: "rgba(7, 16, 41, 0.92)",
+                border: "1px solid rgba(149, 164, 193, 0.25)",
+                borderRadius: "12px",
+                color: "#e6edf8",
+              }}
+            />
             <Line
               type="monotone"
               dataKey="balance"
-              stroke="#14b8a6"
+              stroke="#3d8bfd"
               strokeWidth={3}
               dot={{ r: 2 }}
-              activeDot={{ r: 5 }}
+              activeDot={{ r: 5, fill: "#27d3c0" }}
             />
           </LineChart>
         </ResponsiveContainer>

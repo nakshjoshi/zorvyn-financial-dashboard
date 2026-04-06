@@ -5,9 +5,13 @@ import { Summary } from "@/types/finance";
 
 export function SummaryCards({ summary }: { summary: Summary }) {
   const cards = [
-    { label: "Total Balance", value: summary.totalBalance, tone: "text-teal-400" },
-    { label: "Total Income", value: summary.totalIncome, tone: "text-emerald-400" },
-    { label: "Total Expenses", value: summary.totalExpenses, tone: "text-amber-400" },
+    {
+      label: "Total Balance",
+      value: summary.totalBalance,
+      tone: "text-transparent bg-clip-text bg-[linear-gradient(94deg,var(--accent),var(--accent-soft))]",
+    },
+    { label: "Total Income", value: summary.totalIncome, tone: "text-cyan-300" },
+    { label: "Total Expenses", value: summary.totalExpenses, tone: "text-indigo-300" },
   ];
 
   return (

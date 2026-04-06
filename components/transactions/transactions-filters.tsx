@@ -33,16 +33,16 @@ export function TransactionsFilters({
   };
 
   return (
-    <div className="grid gap-3 rounded-2xl border border-white/10 bg-(--panel) p-4 md:grid-cols-6">
+    <div className="glass-card grid gap-3 rounded-2xl border border-white/10 bg-(--panel) p-4 md:grid-cols-6">
       <input
         placeholder="Search category, note, type"
         onChange={(event) => onSearch(event.target.value)}
-        className="md:col-span-2 rounded-xl border border-white/10 bg-transparent px-3 py-2 text-sm outline-none ring-teal-500 focus:ring"
+        className="control-surface md:col-span-2 rounded-xl border px-3 py-2 text-sm outline-none ring-(--ring) focus:ring"
       />
 
       <select
         onChange={(event) => onCategory(event.target.value)}
-        className="rounded-xl border border-white/10 bg-transparent px-3 py-2 text-sm outline-none"
+        className="control-surface rounded-xl border px-3 py-2 text-sm outline-none"
       >
         <option value="all">All categories</option>
         {categories.map((category) => (
@@ -54,7 +54,7 @@ export function TransactionsFilters({
 
       <select
         onChange={(event) => onType(event.target.value as "all" | "income" | "expense")}
-        className="rounded-xl border border-white/10 bg-transparent px-3 py-2 text-sm outline-none"
+        className="control-surface rounded-xl border px-3 py-2 text-sm outline-none"
       >
         <option value="all">All types</option>
         <option value="income">Income</option>
@@ -64,7 +64,7 @@ export function TransactionsFilters({
       <select
         onChange={handleSort}
         defaultValue="date|desc"
-        className="rounded-xl border border-white/10 bg-transparent px-3 py-2 text-sm outline-none"
+        className="control-surface rounded-xl border px-3 py-2 text-sm outline-none"
       >
         <option value="date|desc">Newest first</option>
         <option value="date|asc">Oldest first</option>
@@ -76,14 +76,14 @@ export function TransactionsFilters({
       <div className="flex gap-2">
         <button
           onClick={onExport}
-          className="w-full rounded-xl border border-white/15 px-3 py-2 text-sm font-medium hover:bg-white/5"
+          className="control-surface w-full rounded-xl border px-3 py-2 text-sm font-medium transition hover:border-accent/45 hover:bg-[var(--hover-bg)]"
         >
           Export CSV
         </button>
         {canEdit ? (
           <button
             onClick={onOpenCreate}
-            className="w-full rounded-xl bg-teal-500 px-3 py-2 text-sm font-semibold text-black hover:bg-teal-400"
+            className="w-full rounded-xl bg-[linear-gradient(94deg,var(--accent),var(--accent-soft))] px-3 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_-14px_rgba(61,139,253,0.85)] transition hover:brightness-110"
           >
             Add
           </button>
