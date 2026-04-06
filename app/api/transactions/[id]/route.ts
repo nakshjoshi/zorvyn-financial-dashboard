@@ -1,5 +1,6 @@
 import { jsonError, withDelay } from "@/app/api/_utils";
 import { updateTransaction } from "@/app/api/_data/transactions-db";
+import { APP_CURRENCY } from "@/lib/constants";
 import { TransactionPayload } from "@/types/finance";
 
 interface Context {
@@ -23,7 +24,7 @@ export async function PUT(request: Request, context: Context): Promise<Response>
       return jsonError("Transaction not found", 404);
     }
 
-    return Response.json({ data: updated });
+    return Response.json({ currency: APP_CURRENCY, data: updated });
   } catch {
     return jsonError("Invalid request body", 400);
   }

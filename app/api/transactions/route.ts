@@ -1,10 +1,11 @@
 import { addTransaction, getTransactions } from "@/app/api/_data/transactions-db";
 import { jsonError, withDelay } from "@/app/api/_utils";
+import { APP_CURRENCY } from "@/lib/constants";
 import { TransactionPayload } from "@/types/finance";
 
 export async function GET(): Promise<Response> {
   await withDelay();
-  return Response.json({ data: getTransactions() });
+  return Response.json({ currency: APP_CURRENCY, data: getTransactions() });
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -29,7 +30,7 @@ export async function POST(request: Request): Promise<Response> {
       notes: payload.notes,
     });
 
-    return Response.json({ data: transaction }, { status: 201 });
+    return Response.json({ currency: APP_CURRENCY, data: transaction }, { status: 201 });
   } catch {
     return jsonError("Invalid request body", 400);
   }
