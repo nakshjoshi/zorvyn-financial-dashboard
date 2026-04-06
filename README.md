@@ -1,36 +1,136 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zorvyn Financial Dashboard
 
-## Getting Started
+A fullstack finance dashboard built with Next.js App Router, TypeScript, Zustand, Tailwind CSS, and API routes.
 
-First, run the development server:
+The app demonstrates a clean dashboard workflow:
+- fetch data from backend APIs
+- manage UI state with Zustand
+- filter and sort transactions
+- simulate Admin/Viewer role behavior
+- show financial insights and charts
+
+## Tech Stack
+
+- Next.js (App Router)
+- TypeScript
+- Zustand (state management + local persistence)
+- Tailwind CSS (styling)
+- Recharts (charts)
+- Framer Motion (small transitions)
+- Bun (package manager and scripts)
+
+## What This Project Includes
+
+### 1. Dashboard Overview
+- Summary cards: Total Balance, Total Income, Total Expenses
+- Time based chart: Balance Trend
+- Categorical chart: Spending Breakdown
+
+### 2. Transactions Section
+- Transaction list with Date, Amount, Category, Type, Notes
+- Search, filter, sort
+- CSV export
+
+### 3. Role Based UI (Frontend simulation)
+- Admin can add and edit transactions
+- Viewer is read-only
+- Role toggle available in the top bar
+
+### 4. Insights Section
+- Highest spending category
+- Monthly comparison
+- Basic analytics (average income, average expense, savings rate)
+
+### 5. State Management
+- Global store for transactions, filters, role, loading, error, sorting, and theme
+- Built with Zustand
+
+### 6. Responsive UI
+- Works on desktop and mobile
+- Transactions view uses mobile cards on small screens and table on larger screens
+
+### 7. Currency
+- Currency format is Indian Rupee (INR)
+- Displayed using `en-IN` locale
+- API responses include currency metadata
+
+## Project Structure
+
+```text
+app/
+	api/
+		insights/
+		summary/
+		transactions/
+			[id]/
+	dashboard/
+	insights/
+	transactions/
+components/
+store/
+lib/
+types/
+```
+
+## API Endpoints
+
+- `GET /api/transactions`
+- `POST /api/transactions`
+- `PUT /api/transactions/:id`
+- `GET /api/summary`
+- `GET /api/insights`
+
+Mock data is stored only in API layer (`app/api/_data/transactions-db.ts`) and API responses include delay to simulate backend behavior.
+
+## Run Locally
+
+### 1. Clone repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+git clone https://github.com/nakshjoshi/zorvyn-financial-dashboard.git
+cd zorvyn-financial-dashboard
+```
+
+### 2. Install dependencies
+
+```bash
+bun install
+```
+
+### 3. Start development server
+
+```bash
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Useful Bun Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# add a dependency
+bun add <package-name>
 
-## Learn More
+# run lint
+bun run lint
 
-To learn more about Next.js, take a look at the following resources:
+# run production build
+bun run build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# start production server after build
+bun run start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Why This Architecture
 
-## Deploy on Vercel
+- API routes keep data source separate from UI components
+- Zustand keeps state logic centralized and avoids prop drilling
+- Reusable components keep code modular and easier to scale
+- TypeScript interfaces reduce runtime mistakes
+- App Router supports clean route-based feature organization
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- This project uses in-memory mock backend data for demo purposes.
+- Restarting the server resets mock data.
+- Role system is UI simulation, not full authentication/authorization.
